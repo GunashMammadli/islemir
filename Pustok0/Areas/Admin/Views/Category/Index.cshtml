@@ -1,0 +1,59 @@
+﻿@model IEnumerable<CategoryListItemVM>
+@{
+    ViewData["Title"] = "Index"; ViewData["Title"] = "GetMoreRecords";
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Category</h1>
+        <a asp-action="Create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            Create Category
+        </a>
+    </div>
+
+    <!-- DataTables -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th colspan="2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <partial  name="_RecordsPartial" />
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <button id="showMore">Show More</button>
+</div>
+
+
+<!-- /.container-fluid -->
+
+
+@section scripts {
+    <script>
+        var page = 2; 
+        var pageSize = 5;
+
+        $("#showMore").click(function () {
+            $.ajax({
+                url: "/Admin/Category/GetMoreRecords?page=" + page + "&pageSize=" + pageSize, 
+                success: function (data) {
+                    $("#records").append(data);
+                    page++;
+                }
+            });
+        });
+    </script>
+}

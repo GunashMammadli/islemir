@@ -1,0 +1,10 @@
+﻿@model PaginatonVM<IEnumerable<CategoryListItemVM>>
+@foreach (var items in Model.Items)
+{
+    <tr>
+        <td>@items.Name</td>
+        <td class="text-center"><a class="btn btn-outline-info" asp-action="Update" asp-route-id="@items.Id">Update</a></td>
+        <td class="text-center"><a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@items.Id">Delete</a></td>
+    </tr>
+}
+
